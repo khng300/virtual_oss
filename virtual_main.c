@@ -1748,6 +1748,8 @@ init_sndstat(vprofile_t *ptr)
 	}
 
 	if (sscanf(ptr->oss_name, "dsp%d", &unit) == 1) {
+		nvlist_add_stringf(di, SNDSTAT_LABEL_NAMEUNIT,
+		    "pcm%d", unit);
 		nvlist_add_stringf(di, SNDSTAT_LABEL_DEVNODE,
 		    "pcm%d", unit);
 		nvlist_add_string(di, SNDSTAT_LABEL_DESC, "Virtual OSS");
@@ -1760,6 +1762,8 @@ init_sndstat(vprofile_t *ptr)
 			nvlist_append_nvlist_array(nvl, SNDSTAT_LABEL_DSPS, di);
 		}
 	} else {
+		nvlist_add_string(di, SNDSTAT_LABEL_NAMEUNIT,
+		    ptr->oss_name);
 		nvlist_add_string(di, SNDSTAT_LABEL_DEVNODE,
 		    ptr->oss_name);
 		nvlist_add_string(di, SNDSTAT_LABEL_DESC, "Virtual OSS");
